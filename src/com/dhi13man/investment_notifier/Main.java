@@ -16,15 +16,15 @@ public class Main {
         if (args.length < 4) {
             // Add your Cryptos and Stocks here for manual usage.
             cryptos.add(
-                    new Crypto(
-                            "ethereum",
-                            "Ethereum",
-                            180000,
-                            220000
-                    )
+                new Crypto(
+                    "ethereum",
+                    "Ethereum",
+                    180000,
+                    220000
+                )
             );
             stocks.add(
-                    new Stock("SBI", "SBI", 10, 10)
+                new Stock("SBI", "SBI", 8, 10)
             );
         }
         else processCommandLineParameters(args, cryptos, stocks);
