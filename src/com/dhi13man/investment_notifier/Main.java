@@ -20,17 +20,17 @@ public class Main {
                             "ethereum",
                             "Ethereum",
                             180000,
-                            210000
+                            220000
                     )
             );
             stocks.add(
-                    new Stock("SBI", "SBI", 8, 10)
+                    new Stock("SBI", "SBI", 10, 10)
             );
         }
         else processCommandLineParameters(args, cryptos, stocks);
 
         // Create the interface that schedules checking and notification of prices (process flow of the app)
-        new InvestmentTrackInterface("inr", cryptos, stocks, 30000);
+        new InvestmentTrackInterface("inr", cryptos, stocks, 60000);
     }
 
     /**

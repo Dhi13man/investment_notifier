@@ -20,7 +20,7 @@ class InvestmentTrackTask extends TimerTask {
 
     /**
      * Constructor
-     * @param currencyCode Code of the currency where Crypto prices will be converted to. Eg. USD, INR.
+     * @param currencyCode Code of the currency where Crypto prices will be converted to. Eg. USD, INR. Stock price is only available in USD!
      * @param cryptos List of Cryptocurrencies that need to be tracked.
      * @param stocks List of Stocks that need to be tracked.
      */
@@ -39,9 +39,10 @@ class InvestmentTrackTask extends TimerTask {
             try {
                 double price = getCryptoPrice(crypto.code);
                 if (price > crypto.priceUpperThreshold || price < crypto.priceLowerThreshold) {
+                    final String alertType = price > crypto.priceUpperThreshold ? " Rise Alert!" : " Fall Alert!";
                     NotificationInterface.sendNotification(
-                            crypto.name.toUpperCase() + " Alert!",
-                            crypto.name + " Price is " + price,
+                            crypto.name.toUpperCase() + alertType,
+                            crypto.name + " Price is " + price + " " + currency.toUpperCase(),
                             "https://static.coingecko.com/s/coingecko-logo-d13d6bcceddbb003f146b33c2f7e8193d72b93bb343d38e392897c3df3e78bdd.png"
                             );
                 }
@@ -53,9 +54,10 @@ class InvestmentTrackTask extends TimerTask {
             try {
                 double price = getStockPrice(stock.code);
                 if (price > stock.priceUpperThreshold || price < stock.priceLowerThreshold) {
+                    final String alertType = price > stock.priceUpperThreshold ? " Rise Alert!" : " Fall Alert!";
                     NotificationInterface.sendNotification(
-                            stock.name.toUpperCase() + " Alert!",
-                            stock.name + " Price is " + price,
+                            stock.name.toUpperCase() + alertType,
+                            stock.name + " Price is " + price + " USD",
                             ""
                     );
                 }
@@ -116,7 +118,7 @@ class InvestmentTrackTask extends TimerTask {
 public class InvestmentTrackInterface {
     /**
      * Constructor
-     * @param currencyCode Code of the currency where Crypto prices will be converted to. Eg. USD, INR.
+     * @param currencyCode Code of the currency where Crypto prices will be converted to. Eg. USD, INR. Stock price is only available in USD!
      * @param cryptos List of Cryptocurrencies that need to be tracked.
      * @param stocks List of Stocks that need to be tracked.
      */
