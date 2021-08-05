@@ -41,7 +41,6 @@ class InvestmentTrackTask extends TimerTask {
     /**
      * Processes each CryptoCurrency on the Crypto List to see if the price is still within thresholds.
      * If not, notifies the user via Notification Interface.
-     * @return void
      */
     private void processCryptoList() {
         for (Crypto crypto : cryptoList) {
@@ -70,7 +69,6 @@ class InvestmentTrackTask extends TimerTask {
     /**
      * Processes each Stock on the Stock List to see if the price is still within thresholds.
      * If not, notifies the user via Notification Interface.
-     * @return void
      */
     private void processStockList() {
         for (Stock stock : stockList) {
