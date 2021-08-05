@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         List<Crypto> cryptos = Arrays.asList(
-                new Crypto("ethereum", "Ethereum", 2000000)
+                new Crypto("ethereum", "Ethereum", 100000)
         );
         List<Stock> stocks = Arrays.asList(
                 new Stock("ethereum", "Ethereum", 2000000)

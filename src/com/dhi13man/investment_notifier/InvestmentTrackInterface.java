@@ -1,5 +1,6 @@
 package com.dhi13man.investment_notifier;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
@@ -10,7 +11,6 @@ import com.dhi13man.investment_notifier.models.Stock;
 
 class InvestmentTrackTask extends TimerTask {
     private final NetworkRequestInterface requestInterface;
-    private final PushSaferNotificationInterface notificationInterface;
 
     private final String currency;
     private final List<Crypto> cryptoList;
@@ -19,7 +19,6 @@ class InvestmentTrackTask extends TimerTask {
     public InvestmentTrackTask(String currencyCode, List<Crypto> cryptos, List<Stock> stocks) {
         // Set up Network and Notification Interface for requests
         requestInterface = new NetworkRequestInterface();
-        notificationInterface = new PushSaferNotificationInterface("");
         // Initialize Class Members
         currency = currencyCode;
         cryptoList = cryptos;
@@ -32,13 +31,13 @@ class InvestmentTrackTask extends TimerTask {
             try {
                 double price = getCryptoPrice(crypto.code, currency);
                 if (price > crypto.priceThreshold) {
-                    notificationInterface.sendNotification(
+                    NotificationInterface.sendNotification(
                             crypto.name.toUpperCase() + " Alert!",
                             crypto.name + " Price is " + price,
                             "https://static.coingecko.com/s/coingecko-logo-d13d6bcceddbb003f146b33c2f7e8193d72b93bb343d38e392897c3df3e78bdd.png"
                             );
                 }
-            } catch (IOException e) {
+            } catch (AWTException | IOException e) {
                 e.printStackTrace();
             }
         }
@@ -68,10 +67,13 @@ class InvestmentTrackTask extends TimerTask {
     }
 }
 
+/**
+ * Internally handles the entire scheduled process flow of the application using every interface.
+ */
 public class InvestmentTrackInterface {
     public InvestmentTrackInterface(String currencyCode, List<Crypto> cryptos, List<Stock> stocks) {
         Timer timer = new Timer();
         InvestmentTrackTask task = new InvestmentTrackTask(currencyCode, cryptos, stocks);
-        timer.scheduleAtFixedRate(task, 10000, 1000);
+        timer.scheduleAtFixedRate(task, 1000, 10000);
     }
 }
