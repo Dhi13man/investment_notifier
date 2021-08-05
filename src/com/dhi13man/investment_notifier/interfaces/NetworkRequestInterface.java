@@ -56,7 +56,6 @@ public class NetworkRequestInterface {
         StringBuilder response;
         if (responseCode == HttpsURLConnection.HTTP_OK) { // success
             response = decipherResponse(con);
-            logger.log(Level.INFO, "{0}", response);
         } else {
             response = new StringBuilder().append(responseCode);
             logger.log(Level.SEVERE, "GET request failed!");
@@ -90,8 +89,7 @@ public class NetworkRequestInterface {
         logger.log(Level.FINE, "POST Response Code: {0}", responseCode);
 
         if (responseCode == HttpsURLConnection.HTTP_OK) { //success
-            StringBuilder response = decipherResponse(con);
-            logger.log(Level.INFO, "{0}", response);
+            decipherResponse(con);
         } else {
             logger.log(Level.SEVERE, "POST request failed!");
         }
