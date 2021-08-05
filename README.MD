@@ -1,6 +1,6 @@
 # investment_notifier
 
-A small Core Java CLI Application that shows Desktop notifications any time a specified Stock or Crypto price rises 
+A small core Java CLI Application that shows Desktop notifications any time a specified Stock or Crypto price rises 
 above a threshold or falls below another threshold value.
 
 ## Usage
@@ -24,7 +24,7 @@ above a threshold or falls below another threshold value.
 2. [AlphaVantage Stock Data Tracking API](https://www.alphavantage.co/documentation/), which only supports USD prices
 as of now, unfortunately.
 
-3. java.awt.* for Desktop Notifications and various other Core Java Utilities.
+3. `java.awt.*` for Desktop Notifications, and various other Core Java Utilities.
 
 ### Screenshots
 
