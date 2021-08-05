@@ -46,7 +46,7 @@ class InvestmentTrackTask extends TimerTask {
         for (Crypto crypto : cryptoList) {
             try {
                 double price = getCryptoPrice(crypto.getCode());
-                System.out.printf("%s Crypto Price: %f%n", crypto.getName(), price);
+                System.out.printf("%s Crypto Price: %f %s%n", crypto.getName(), price, currency.toUpperCase());
                 if (price == -1)
                     NotificationInterface.sendNotification(
                             "Request Failed",
@@ -75,7 +75,7 @@ class InvestmentTrackTask extends TimerTask {
         for (Stock stock : stockList) {
             try {
                 double price = getStockPrice(stock.getName());
-                System.out.printf("%s Stock Price: %f%n", stock.getName(), price);
+                System.out.printf("%s Stock Price: %f USD%n", stock.getName(), price);
                 if (price == -1)
                     NotificationInterface.sendNotification(
                             "Request Failed",
