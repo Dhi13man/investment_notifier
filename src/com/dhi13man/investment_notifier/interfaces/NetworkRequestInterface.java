@@ -1,4 +1,4 @@
-package com.dhi13man.investment_notifier;
+package com.dhi13man.investment_notifier.interfaces;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;

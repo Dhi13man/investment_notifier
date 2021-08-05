@@ -15,19 +15,31 @@ public class Crypto {
     public String name;
 
     /**
+     * The price below which script will send Notification
+     */
+    public double priceLowerThreshold;
+
+    /**
      * The price above which script will send Notification
      */
-    public double priceThreshold;
+    public double priceUpperThreshold;
 
     /**
      * The constructor of the Data Model storing Cryptocurrency data.
      * @param cryptoCode The Code of the Cryptocurrency.
      * @param cryptoName The Name of the Cryptocurrency.
-     * @param cryptoPriceThreshold The script will send Notification if the price of the Crypto is above this.
+     * @param cryptoPriceLowerThreshold The script will send Notification if the price of the Crypto is below this.
+     * @param cryptoPriceUpperThreshold The script will send Notification if the price of the Crypto is above this.
      */
-    public Crypto(String cryptoCode, String cryptoName, double cryptoPriceThreshold) {
+    public Crypto(
+            String cryptoCode,
+            String cryptoName,
+            double cryptoPriceLowerThreshold,
+            double cryptoPriceUpperThreshold
+    ) {
         code = cryptoCode;
         name = cryptoName;
-        priceThreshold = cryptoPriceThreshold;
+        priceLowerThreshold = cryptoPriceLowerThreshold;
+        priceUpperThreshold = cryptoPriceUpperThreshold;
     }
 }
