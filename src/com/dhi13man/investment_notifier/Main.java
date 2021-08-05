@@ -4,6 +4,8 @@ import com.dhi13man.investment_notifier.interfaces.InvestmentTrackInterface;
 import com.dhi13man.investment_notifier.models.Crypto;
 import com.dhi13man.investment_notifier.models.Stock;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,21 +46,26 @@ public class Main {
             if (args[i].startsWith("c_"))
                 cryptos.add(
                     new Crypto(
-                            args[i].substring(2),
-                            args[i + 1],
-                            Double.parseDouble(args[i + 2]),
-                            Double.parseDouble(args[i + 3])
+                        args[i].substring(2),
+                        args[i + 1],
+                        Double.parseDouble(args[i + 2]),
+                        Double.parseDouble(args[i + 3])
                     )
                 );
             else if (args[i].startsWith("s_"))
                 stocks.add(
                     new Stock(
-                            args[i].substring(2),
-                            args[i + 1],
-                            Double.parseDouble(args[i + 2]),
-                            Double.parseDouble(args[i + 3])
+                        args[i].substring(2),
+                        args[i + 1],
+                        Double.parseDouble(args[i + 2]),
+                        Double.parseDouble(args[i + 3])
                     )
                 );
+            else {
+                final Logger logger = Logger.getLogger(Main.class.getName());
+                logger.log(Level.SEVERE, "Invalid Command Line Parameters. Every (4 * i + 1)th element must start with c_ or s_.");
+                logger.log(Level.SEVERE, "Refer to README.MD");
+            }
         }
     }
 }

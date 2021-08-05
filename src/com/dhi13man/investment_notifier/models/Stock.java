@@ -4,25 +4,29 @@ package com.dhi13man.investment_notifier.models;
  * Data Model storing Stock data.
  */
 public class Stock {
+    private final String code;
     /**
-     * The Code of the Stock
+     * @return the Code of the Stock
      */
-    public String code;
+    public String getCode() { return code; }
 
+    private final String name;
     /**
-     * The Name of the Stock
+     * @return the Name of the Stock
      */
-    public String name;
+    public String getName() { return name; }
 
+    private final double priceUpperThreshold;
     /**
-     * The price above which script will send Notification
+     * @return the price above which script will send Notification
      */
-    public double priceUpperThreshold;
+    public double getPriceUpperThreshold() { return priceUpperThreshold; }
 
+    private final double priceLowerThreshold;
     /**
-     * The price below which script will send Notification
+     * @return the price below which script will send Notification
      */
-    public double priceLowerThreshold;
+    public double getPriceLowerThreshold() { return priceLowerThreshold; }
 
     /**
      * The constructor of the Data Model storing Stock data.

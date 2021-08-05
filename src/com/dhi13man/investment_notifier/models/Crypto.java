@@ -4,25 +4,29 @@ package com.dhi13man.investment_notifier.models;
  * Data Model storing Cryptocurrency data.
  */
 public class Crypto {
+    private final String code;
     /**
-     * The Code of the Cryptocurrency
+     * @return The Code of the Cryptocurrency
      */
-    public String code;
+    public String getCode() { return code; }
 
+    private final String name;
     /**
-     * The Name of the Cryptocurrency
+     * @return the Name of the Cryptocurrency
      */
-    public String name;
+    public String getName() { return name; }
 
+    private final double priceLowerThreshold;
     /**
-     * The price below which script will send Notification
+     * @return the price below which script will send Notification
      */
-    public double priceLowerThreshold;
+    public double getPriceLowerThreshold() { return priceLowerThreshold; }
 
+    private final double priceUpperThreshold;
     /**
-     * The price above which script will send Notification
+     * @return the price above which script will send Notification
      */
-    public double priceUpperThreshold;
+    public double getPriceUpperThreshold() { return priceUpperThreshold; }
 
     /**
      * The constructor of the Data Model storing Cryptocurrency data.

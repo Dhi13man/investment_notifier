@@ -34,20 +34,30 @@ class InvestmentTrackTask extends TimerTask {
 
     @Override
     public void run() {
+        processCryptoList();
+        processStockList();
+    }
+
+    /**
+     * Processes each CryptoCurrency on the Crypto List to see if the price is still within thresholds.
+     * If not, notifies the user via Notification Interface.
+     * @return void
+     */
+    private void processCryptoList() {
         for (Crypto crypto : cryptoList) {
             try {
-                double price = getCryptoPrice(crypto.code);
+                double price = getCryptoPrice(crypto.getCode());
                 if (price == -1)
                     NotificationInterface.sendNotification(
                             "Request Failed",
-                            "Kindly Run the program with proper instructions! Failed Crypto Code: " + crypto.code,
+                            "Kindly Run the program with proper instructions! Failed Crypto Code: " + crypto.getCode(),
                             ""
                     );
-                else if (price > crypto.priceUpperThreshold || price < crypto.priceLowerThreshold) {
-                    final String alertType = price > crypto.priceUpperThreshold ? " Rise Alert!" : " Fall Alert!";
+                else if (price > crypto.getPriceUpperThreshold() || price < crypto.getPriceLowerThreshold()) {
+                    final String alertType = price > crypto.getPriceUpperThreshold() ? " Rise Alert!" : " Fall Alert!";
                     NotificationInterface.sendNotification(
-                            crypto.name.toUpperCase() + alertType,
-                            crypto.name + " Price is " + price + " " + currency.toUpperCase(),
+                            crypto.getName().toUpperCase() + alertType,
+                            crypto.getName() + " Price is " + price + " " + currency.toUpperCase(),
                             "https://static.coingecko.com/s/coingecko-logo-d13d6bcceddbb003f146b33c2f7e8193d72b93bb343d38e392897c3df3e78bdd.png"
                             );
                 }
@@ -55,20 +65,28 @@ class InvestmentTrackTask extends TimerTask {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Processes each Stock on the Stock List to see if the price is still within thresholds.
+     * If not, notifies the user via Notification Interface.
+     * @return void
+     */
+    private void processStockList() {
         for (Stock stock : stockList) {
             try {
-                double price = getStockPrice(stock.code);
+                double price = getStockPrice(stock.getName());
                 if (price == -1)
                     NotificationInterface.sendNotification(
                             "Request Failed",
-                            "Kindly Run the program with proper instructions! Failed Stock Code: " + stock.code,
+                            "Kindly Run the program with proper instructions! Failed Stock Code: " + stock.getCode(),
                             ""
                     );
-                else if (price > stock.priceUpperThreshold || price < stock.priceLowerThreshold) {
-                    final String alertType = price > stock.priceUpperThreshold ? " Rise Alert!" : " Fall Alert!";
+                else if (price > stock.getPriceUpperThreshold() || price < stock.getPriceLowerThreshold()) {
+                    final String alertType = price > stock.getPriceUpperThreshold() ? " Rise Alert!" : " Fall Alert!";
                     NotificationInterface.sendNotification(
-                            stock.name.toUpperCase() + alertType,
-                            stock.name + " Price is " + price + " USD",
+                            stock.getName().toUpperCase() + alertType,
+                            stock.getName() + " Price is " + price + " USD",
                             ""
                     );
                 }
@@ -77,6 +95,7 @@ class InvestmentTrackTask extends TimerTask {
             }
         }
     }
+
 
     /**
      * Highly abstracted method to easily get CryptoCurrency price from CoinGecko API.

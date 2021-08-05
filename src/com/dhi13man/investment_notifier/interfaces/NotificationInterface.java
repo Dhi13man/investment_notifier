@@ -9,6 +9,13 @@ import java.awt.TrayIcon.MessageType;
  */
 public class NotificationInterface {
     /**
+     * Class has only Static methods. Do not instantiate. Call the methods from the outside.
+     */
+    private NotificationInterface() {
+        throw new IllegalStateException("Not instantiable");
+    }
+
+    /**
      * Send a notification to the notification POST_URL endpoint which this class was initialized with.
      * The backend then sends the notification where required.
      * @param notificationTitle The title of the Notification
@@ -22,10 +29,10 @@ public class NotificationInterface {
             String iconURL
     ) throws AWTException {
         //Obtain only one instance of the SystemTray object
-        SystemTray tray = SystemTray.getSystemTray();
+        final SystemTray tray = SystemTray.getSystemTray();
 
         //If the icon is a file
-        Image image = Toolkit.getDefaultToolkit().getImage(iconURL);
+        final Image image = Toolkit.getDefaultToolkit().getImage(iconURL);
 
         TrayIcon trayIcon = new TrayIcon(image, "");
         //Let the system resize the image if needed

@@ -1,5 +1,7 @@
 package com.dhi13man.investment_notifier.interfaces;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,20 +14,23 @@ import java.nio.charset.StandardCharsets;
  * Uses Core Java HttpsURLConnection to make network requests.
  */
 public class NetworkRequestInterface {
-    // User agent required for making requests.
+    /** User agent required for making requests. **/
     private static final String USER_AGENT = "Mozilla/5.0";
+
+    /** Logger object to log the class' outputs. **/
+    private static final Logger logger = Logger.getLogger(NetworkRequestInterface.class.getName());
 
     /**
      * Gets the response of the connection after it has been made
      * @param connection [HttpsURLConnection]: The connection object with which the request is made.
-     * @return response [StringBuffer]: The response received by the connection.
+     * @return response [StringBuilder]: The response received by the connection.
      **/
-    private static StringBuffer decipherResponse(HttpsURLConnection connection) throws IOException {
+    private static StringBuilder decipherResponse(HttpsURLConnection connection) throws IOException {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(connection.getInputStream())
         );
         String inputLine;
-        StringBuffer response = new StringBuffer();
+        StringBuilder response = new StringBuilder();
 
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
@@ -47,14 +52,14 @@ public class NetworkRequestInterface {
         con.setRequestProperty("User-Agent", USER_AGENT);
         con.setRequestProperty("accept", "application/json");
         int responseCode = con.getResponseCode();
-        System.out.println("GET Response Code :: " + responseCode);
-        StringBuffer response;
+        logger.log(Level.FINE, "GET Response Code: {0}", responseCode);
+        StringBuilder response;
         if (responseCode == HttpsURLConnection.HTTP_OK) { // success
             response = decipherResponse(con);
-            System.out.println(response.toString());
+            logger.log(Level.INFO, "{0}", response);
         } else {
-            response = new StringBuffer().append(responseCode);
-            System.out.println("GET request failed");
+            response = new StringBuilder().append(responseCode);
+            logger.log(Level.SEVERE, "GET request failed!");
         }
         return response.toString();
     }
@@ -75,20 +80,20 @@ public class NetworkRequestInterface {
 
         // For POST only - START
         con.setDoOutput(true);
-        OutputStream os = con.getOutputStream();
+        final OutputStream os = con.getOutputStream();
         os.write(postParameters.getBytes(StandardCharsets.UTF_8));
         os.flush();
         os.close();
         // For POST only - END
 
         int responseCode = con.getResponseCode();
-        System.out.println("POST Response Code :: " + responseCode);
+        logger.log(Level.FINE, "POST Response Code: {0}", responseCode);
 
         if (responseCode == HttpsURLConnection.HTTP_OK) { //success
-            StringBuffer response = decipherResponse(con);
-            System.out.println(response.toString());
+            StringBuilder response = decipherResponse(con);
+            logger.log(Level.INFO, "{0}", response);
         } else {
-            System.out.println("POST request not worked");
+            logger.log(Level.SEVERE, "POST request failed!");
         }
         return responseCode;
     }
