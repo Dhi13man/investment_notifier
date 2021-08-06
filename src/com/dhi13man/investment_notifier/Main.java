@@ -14,7 +14,10 @@ public class Main {
         // Make Lists of Cryptos and Stocks that you would like to be notified about.
         List<Crypto> cryptos = new ArrayList<>();
         List<Stock> stocks = new ArrayList<>();
-        // If not enough command line parameters
+         // Refresh price every 60 seconds to prevent API burnout.
+        long priceRefreshTime = 60000;
+
+        // If not enough command line parameters, manually coded investments will be tracked.
         if (args.length < 4) {
             // Add your Cryptos and Stocks here for manual usage.
             cryptos.add(
@@ -25,14 +28,13 @@ public class Main {
                     220000
                 )
             );
-            stocks.add(
-                new Stock("SBI", "SBI", 8, 10)
-            );
+            stocks.add(new Stock("SBI", "SBI", 8, 10));
         }
+        // Get Cryptos and Stocks from command line parameters.
         else processCommandLineParameters(args, cryptos, stocks);
 
         // Create the interface that schedules checking and notification of prices (process flow of the app)
-        new InvestmentTrackInterface("inr", cryptos, stocks, 60000);
+        new InvestmentTrackInterface("inr", cryptos, stocks, priceRefreshTime);
     }
 
     /**
@@ -42,7 +44,9 @@ public class Main {
      * @param stocks Stock list that the application will use
      */
     private static void processCommandLineParameters(String[] args, List<Crypto> cryptos, List<Stock> stocks) {
-        for (int i = 0; i < args.length; i += 4) {
+        final Logger logger = Logger.getLogger(Main.class.getName());
+        int i;
+        for (i = 0; i + 3 < args.length; i += 4) {
             if (args[i].startsWith("c_"))
                 cryptos.add(
                     new Crypto(
@@ -62,10 +66,15 @@ public class Main {
                     )
                 );
             else {
-                final Logger logger = Logger.getLogger(Main.class.getName());
                 logger.log(Level.SEVERE, "Invalid Command Line Parameters. Every (4 * i + 1)th element must start with c_ or s_.");
                 logger.log(Level.SEVERE, "Refer to README.MD");
             }
+        }
+
+        // If there are more command line parameters than needed.
+        if (args.length != i) {
+            logger.log(Level.SEVERE, "Invalid Command Line Parameters. Last {0} parameter(s) were ignored due to improper format!", (args.length - i));
+            logger.log(Level.SEVERE, "Refer to README.MD");
         }
     }
 }
