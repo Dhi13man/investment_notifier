@@ -3,6 +3,13 @@
 A small core Java CLI Application that shows Desktop notifications any time a specified Stock or Crypto price rises 
 above a threshold or falls below another threshold value.
 
+
+## Install
+
+A JDK. Sources are under `src/`. Compile and run the CLI, or edit the watchlist in code as described below.
+
+You need a CoinGecko-accessible network and an [Alpha Vantage](https://www.alphavantage.co/documentation/) key for USD stock quotes.
+
 ## Usage
 
 **Method 1:**  Modify the code directly to add your Stock or Crypto of interest, and run.
@@ -31,3 +38,11 @@ as of now, unfortunately.
 | CryptoCurrency Price Notification | Stock Price Notification |
 | --- | ---- |
 | ![](screenshots/CryptoRiseNotification.png) | ![](screenshots/StockFallNotification.png) |
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+See [LICENSE](LICENSE).
